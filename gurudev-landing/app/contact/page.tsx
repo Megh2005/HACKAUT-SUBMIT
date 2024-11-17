@@ -2,13 +2,10 @@
 
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { submitEnquiry } from "@/lib/actions/submitEnquiry";
 
-// Dynamically import MDEditor to handle SSR
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 // Types for form inputs
 interface ContactFormInputs {
@@ -210,16 +207,7 @@ export default function ContactForm() {
         </div>
 
         {/* Additional Comments */}
-        <div className="hidden sm:block">
-          <label className="block font-medium text-white mb-2">
-            Additional Comments (Markdown Supported)
-          </label>
-          <MDEditor
-            value={markdown}
-            onChange={(value) => setMarkdown(value || "")}
-            className="bg-black text-white resize-none rounded-md border border-white"
-          />
-        </div>
+       
 
         <div className="flex justify-center">
           <button
