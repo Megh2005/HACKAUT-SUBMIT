@@ -27,9 +27,7 @@ const Navbar: React.FC = () => {
         <div className="flex space-x-6">
           <Link
             href="/"
-            className={`relative group hover:text-blue-500 ${
-              activeLink === "home" ? "text-blue-500" : ""
-            }`}
+            className={`relative group hover:text-blue-500 `}
             onClick={() => handleLinkClick("home")}
           >
             <FaHome className="inline-block mr-2" />
@@ -39,9 +37,7 @@ const Navbar: React.FC = () => {
           </Link>
           <Link
             href="/about"
-            className={`relative group hover:text-blue-500 ${
-              activeLink === "about" ? "text-blue-500" : ""
-            }`}
+            className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("about")}
           >
             <FaInfoCircle className="inline-block mr-2" />
@@ -51,9 +47,7 @@ const Navbar: React.FC = () => {
           </Link>
           <Link
             href="/team"
-            className={`relative group hover:text-blue-500 ${
-              activeLink === "team" ? "text-blue-500" : ""
-            }`}
+            className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("team")}
           >
             <FaUsers className="inline-block mr-2" />
@@ -63,9 +57,7 @@ const Navbar: React.FC = () => {
           </Link>
           <Link
             href="/explore"
-            className={`relative group hover:text-blue-500 ${
-              activeLink === "explore" ? "text-blue-500" : ""
-            }`}
+            className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("services")}
           >
             <FaServicestack className="inline-block mr-2" />
@@ -75,9 +67,7 @@ const Navbar: React.FC = () => {
           </Link>
           <Link
             href="/testimonials"
-            className={`relative group hover:text-blue-500 ${
-              activeLink === "testimonials" ? "text-blue-500" : ""
-            }`}
+            className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("testimonials")}
           >
             <FaComments className="inline-block mr-2" />
