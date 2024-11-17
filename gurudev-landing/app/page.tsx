@@ -1,10 +1,13 @@
+"use client";
+
 import React from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import Navbar from "@/components/navbar";
 
 export default function BackgroundBeamsWithCollisionDemo() {
   return (
     <div>
-      <BackgroundBeamsWithCollision>
+      <BackgroundBeamsWithCollision className="flex-col">
         <div className="flex flex-col items-center justify-center h-screen">
           <h2 className="text-2xl relative z-20 md:text-4xl lg:text-7xl font-bold text-center text-black dark:text-white font-sans tracking-tight">
             Want To Educate Yourself With Your Passion ?
