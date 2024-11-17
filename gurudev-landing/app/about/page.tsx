@@ -2,7 +2,7 @@
 
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
-const words = `Gurudev is your one-stop solution for all your learning and career aspirations. Our platform offers a comprehensive suite of AI-powered tools to elevate your educational journey.  From personalized course recommendations to intelligent note-taking and summarization, we empower you to learn efficiently and effectively. Our innovative quiz generator provides interactive assessments to reinforce your understanding, while our internship search platform connects you with exciting opportunities to gain practical experience. To validate your achievements, our blockchain-based certificate generator and verifier ensure secure and transparent credentialing. With Gurudev, you have the tools and resources to succeed in your academic and professional endeavors.
+const words = `Gurudev is your one-stop solution for all your learning and career aspirations. Our platform offers a comprehensive suite of AI-powered tools to elevate your educational journey.  From personalized course recommendations to intelligent note-taking and summarization, we empower you to learn efficiently and effectively. Our innovative quiz generator provides interactive assessments to reinforce your understanding, while our internship search platform connects you with exciting opportunities to gain practical experience. To validate your achievements, our blockchain-based certificate generator and verifier ensure secure and transparent credentialing. With Gurudev, you have the tools and resources to succeed in your academic and professional endeavors
 `;
 
 export default function TextGenerateEffectDemo() {

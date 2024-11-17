@@ -3,6 +3,7 @@
 import React from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import Navbar from "@/components/navbar";
+import Link from "next/link";
 
 export default function BackgroundBeamsWithCollisionDemo() {
   return (
@@ -21,12 +22,12 @@ export default function BackgroundBeamsWithCollisionDemo() {
               </div>
             </div>
           </h2>
-          <button className="p-[3px] relative mt-6">
+          <Link href={"/explore"} className="p-[3px] relative mt-6">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
             <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-2xl font-extrabold text-white hover:bg-transparent">
               Explore More
             </div>
-          </button>
+          </Link>
         </div>
       </BackgroundBeamsWithCollision>
     </div>
