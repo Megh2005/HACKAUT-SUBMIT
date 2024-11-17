@@ -1,0 +1,26 @@
+[
+  {
+    "question": "What is Job Sathi?",
+    "answer": "Hirrd is a internships Portal Application allows companies to post internships listings and users to search and apply for internships. It provides features for both internships seekers and employers, with user-friendly interfaces and secure authentication."
+  },
+  {
+    "question": "How do I post an internship?",
+    "answer": "As an employer, you can post a internships by navigating to the 'Post internships' section after logging in. Fill in the internships details and submit the form to create a new internships listing."
+  },
+  {
+    "question": "How can I search for internships?",
+    "answer": "internships seekers can search for internships by keywords, location, category, and other filters using the search bar on the homepage or the dedicated internships search page."
+  },
+  {
+    "question": "How do I apply for internships?",
+    "answer": "To apply for a internships, click on the internships listing and follow the application instructions provided. You may need to upload your resume and provide additional information."
+  },
+  {
+    "question": "Can I save internships to apply later?",
+    "answer": "Yes, you can save internships listings by clicking the 'Save internships' button on the internships listing. Saved internships can be accessed from your profile under the 'Saved internships' section."
+  },
+  {
+    "question": "How do I track my internships applications?",
+    "answer": "internships seekers can track the status of their applications from the 'Applications' section in their profile. This section provides updates on the progress of each application."
+  }
+]
