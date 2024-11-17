@@ -22,12 +22,20 @@ export default function BackgroundBeamsWithCollisionDemo() {
               </div>
             </div>
           </h2>
-          <Link href={"/explore"} className="p-[3px] relative mt-6">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-            <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-2xl font-extrabold text-white hover:bg-transparent">
-              Explore More
-            </div>
-          </Link>
+          <div className="flex gap-10">
+            <Link href={"/explore"} className="p-[3px] relative mt-6">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+              <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-xl font-extrabold text-white hover:bg-transparent">
+                Explore More
+              </div>
+            </Link>
+            <Link href={"http://localhost:5173"} target="_blank" className="p-[3px] relative mt-6">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+              <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-xl font-extrabold text-white hover:bg-transparent">
+                Find Internship
+              </div>
+            </Link>
+          </div>
         </div>
       </BackgroundBeamsWithCollision>
     </div>
