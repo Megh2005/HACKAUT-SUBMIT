@@ -2,6 +2,7 @@
 
 import { recommendationSchema } from "@/schemas/recommendation.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,7 +20,23 @@ const Recommendation = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof recommendationSchema>) => {
-    console.log(data);
+    setSubmitting(true);
+    try {
+      const fd = new FormData();
+      fd.append("skills", data.skills);
+      fd.append("levelOfExperience", data.levelOfExperience);
+      fd.append("commitmentTime", data.commitmentTime);
+
+      const res = await axios.post("/api/recommend", fd);
+      if (res.data.status === "SUCCESS") {
+        reset();
+        console.log(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
