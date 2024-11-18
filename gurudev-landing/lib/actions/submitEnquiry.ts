@@ -3,12 +3,14 @@
 interface EnquiryData {
   name: string;
   email: string;
+  phone: string;
+  state: string;
+  pincode: string;
   message: string;
-  [key: string]: any; // Allow additional properties if needed
 }
 
-export const submitEnquiry = async (data: EnquiryData): Promise<boolean> => {
-  const res = await fetch(process.env.DB_URL as string, {
+export const submitEnquiry = async (data: EnquiryData) => {
+  const res = await fetch(process.env.DB_URL! + "/gurudev-enquiry.json", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

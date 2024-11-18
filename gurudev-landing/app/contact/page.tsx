@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import Image from "next/image";
 import { submitEnquiry } from "@/lib/actions/submitEnquiry";
-
 
 // Types for form inputs
 interface ContactFormInputs {
@@ -14,7 +12,7 @@ interface ContactFormInputs {
   phone: string;
   state: string;
   pincode: string;
-  domain: string;
+  message: string;
 }
 
 const statesOfIndia = [
@@ -62,26 +60,25 @@ export default function ContactForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<ContactFormInputs>();
-  const [markdown, setMarkdown] = useState<string>("");
 
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    const formData = { ...data, markdown, message: markdown };
+    const formData = { ...data };
 
     const res = await submitEnquiry(formData);
     if (res) {
       reset();
-      setMarkdown("");
       toast.success("Enquiry submitted successfully");
     } else {
-    toast.error("Failed to submit enquiry");
+      toast.error("Failed to submit enquiry");
     }
   };
 
-  const showToast = (message: string) => {
+  /*const showToast = (message: string) => {
     toast.custom((t) => (
       <div
-        className={`${t.visible ? "animate-enter" : "animate-leave"
-          } max-w-md w-full h-screen bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } max-w-md w-full h-screen bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
       >
         <div className="flex-1 w-0 p-4">
           <div className="flex items-start">
@@ -109,7 +106,7 @@ export default function ContactForm() {
         </div>
       </div>
     ));
-  };
+  };*/
 
   return (
     <div className="min-h-screen mt-[-130px] flex justify-center items-center text-white p-4">
@@ -203,11 +200,20 @@ export default function ContactForm() {
               </p>
             )}
           </div>
-          
+          <div>
+            <label className="block font-medium text-white">
+              Additional Message
+            </label>
+            <input
+              type="text"
+              {...register("message", { required: false })}
+              className="w-full p-2 rounded-md bg-black text-white border border-white focus:ring-white"
+              placeholder="Additional Message"
+            />
+          </div>
         </div>
 
         {/* Additional Comments */}
-       
 
         <div className="flex justify-center">
           <button
