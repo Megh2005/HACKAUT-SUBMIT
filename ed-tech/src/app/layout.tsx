@@ -4,6 +4,11 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { cookieToInitialState } from "wagmi";
+import { headers } from "next/headers";
+
+import { getConfig } from "./config";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +22,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(
+    getConfig(),
+    headers().get("cookie")
+  );
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
-          <Toaster />
-          {children}
-        </div>
+        <Providers initialState={initialState}>
+          <div>
+            <Toaster />
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
