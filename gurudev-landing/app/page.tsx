@@ -2,7 +2,6 @@
 
 import React from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import Navbar from "@/components/navbar";
 import Link from "next/link";
 
 export default function BackgroundBeamsWithCollisionDemo() {

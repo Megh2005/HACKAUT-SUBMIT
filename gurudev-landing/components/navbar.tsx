@@ -46,13 +46,13 @@ const Navbar: React.FC = () => {
             </span>
           </Link>
           <Link
-            href="/team"
+            href="/gurugyan"
             className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("team")}
           >
             <FaUsers className="inline-block mr-2" />
             <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              Team
+              Gurugyan
             </span>
           </Link>
           <Link
