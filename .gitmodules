@@ -1,3 +1,6 @@
 [submodule "CertifyNFT/lib/forge-std"]
 	path = CertifyNFT/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "CertifyNFT/lib/openzeppelin-contracts"]
+	path = CertifyNFT/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
