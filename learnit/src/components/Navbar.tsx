@@ -1,4 +1,4 @@
-import { MessageCircle, Notebook } from "lucide-react";
+import { GraduationCapIcon, MessageCircle, Notebook } from "lucide-react";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import Link from "next/link";
 import Logout from "./Logout";
@@ -27,6 +27,15 @@ const Navbar = () => {
             data-tip="Discussion Board"
           >
             <MessageCircle className="w-6 h-6 text-base-content" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={"/u/recommend"}
+            className="tooltip tooltip-right"
+            data-tip="Recommendations"
+          >
+            <GraduationCapIcon className="w-6 h-6 text-base-content" />
           </Link>
         </li>
         <li>
