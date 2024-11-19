@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import CertificateCard from "@/components/CertificateCard";
 import { LoaderCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 const contractAddress = "0xf37B6D5733bc58DCF5634e50FBd9992EA42408A3";
 
@@ -99,6 +100,37 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
 
       // Mint certificate with the image URI
       const tx = await MintCertificate(imageURI);
+
+      if (tx) {
+        toast.custom((t) => (
+          <div
+            className={`${
+              t.visible ? "animate-enter" : "animate-leave"
+            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+          >
+            <div className="flex-1 w-0 p-4">
+              <p className="text-black text-sm">Transaction ID: {tx}</p>
+            </div>
+            <div className="flex border-l border-gray-200">
+              <button
+                onClick={() => {
+                  navigator.clipboard
+                    .writeText(tx)
+                    .then(() => {
+                      console.log("Transaction ID copied to clipboard!");
+                    })
+                    .catch((err) => {
+                      console.error("Failed to copy transaction ID: ", err);
+                    });
+                }}
+                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        ));
+      }
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
