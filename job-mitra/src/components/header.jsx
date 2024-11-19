@@ -73,7 +73,7 @@ const Header = () => {
             )}
             {user?.unsafeMetadata?.role === "candidate" && (
               <Link
-                to="https://tjp-resume-analyzer.streamlit.app"
+                to="https://hackaut-submit.vercel.app/analyze-resume"
                 target="_blank"
               >
                 <Button variant="destructive" className="rounded-full">
