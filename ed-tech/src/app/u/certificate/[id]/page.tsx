@@ -5,11 +5,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import abi from "@/app/abi";
-import { useAccount, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useWriteContract,
+  useReadContract,
+  useWatchContractEvent,
+} from "wagmi";
 import axios from "axios";
+import CertificateCard from "@/components/CertificateCard";
 import { LoaderCircle } from "lucide-react";
 
-const contractAddress = "0x4b4Ca68B251E0349dF9A1FFa18AF3A4748c94A9c";
+const contractAddress = "0xf37B6D5733bc58DCF5634e50FBd9992EA42408A3";
 
 const CertificatePage = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(false);
@@ -90,7 +96,7 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
       console.log("Image uploaded to IPFS:", imageURI);
 
       // Mint certificate with the image URI
-      await MintCertificate(imageURI.url);
+      await MintCertificate(imageURI);
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
@@ -158,7 +164,53 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
             )}
           </button>
         )}
+        <MyCertificates />
       </div>
+    </div>
+  );
+};
+
+interface Certificate {
+  tokenId: string;
+  imageURI: string;
+  tokenURI: string;
+  owner: string;
+}
+
+const MyCertificates = () => {
+  const { address } = useAccount();
+  const { data, refetch } = useReadContract({
+    abi: abi,
+    address: contractAddress,
+    functionName: "getOwnedCertificates",
+    args: [address],
+  });
+  useWatchContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "GameSubmitted",
+    onLogs(data) {
+      console.log("New game added:", data);
+      refetch();
+    },
+  });
+  const certificates = data as Certificate[];
+  return (
+    <div className="p-4 md:p-6">
+      <h1 className="text-3xl font-bold">My Certificates</h1>
+      {certificates && certificates.length > 0 ? (
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
+          {certificates.map((certificate) => (
+            <CertificateCard
+              key={certificate.tokenId}
+              tokenURI={certificate.tokenURI}
+              tokenId={parseInt(certificate.tokenId)}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-6">No certificates</p>
+      )}
     </div>
   );
 };
