@@ -71,9 +71,9 @@ const Header = () => {
                 </Button>
               </Link>
             )}
-            {user?.unsafeMetadata?.role === "candidate" && (
+            {/* {user?.unsafeMetadata?.role === "candidate" && (
               <Link
-                to="https://hackaut-submit.vercel.app/analyze-resume"
+                to="http://localhost:3000/analyze-resume"
                 target="_blank"
               >
                 <Button variant="destructive" className="rounded-full">
@@ -81,15 +81,7 @@ const Header = () => {
                   Analyze Resume
                 </Button>
               </Link>
-            )}
-            {user?.unsafeMetadata?.role === "candidate" && (
-              <Link to="http://atmanirvar.vercel.app">
-                <Button variant="destructive" className="rounded-full">
-                  <GraduationCap size={20} className="mr-2" />
-                  Upskill Yourself
-                </Button>
-              </Link>
-            )}
+            )} */}
             {/* {user?.unsafeMetadata?.role === "candidate" && (
               <Link to="https://sanlap.vercel.app">
                 <Button variant="destructive" className="rounded-full">
