@@ -1,11 +1,13 @@
 "use client";
 
 import Certificate from "@/components/Certificate";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import abi from "@/app/abi";
 import { useAccount, useWriteContract } from "wagmi";
+import axios from "axios";
+import { LoaderCircle } from "lucide-react";
 
 const contractAddress = "0x4b4Ca68B251E0349dF9A1FFa18AF3A4748c94A9c";
 
@@ -14,6 +16,34 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
   const ref = useRef<HTMLDivElement>(null);
   const account = useAccount();
   const { writeContractAsync } = useWriteContract();
+
+  const [certificateInfo, setCertificateInfo] = useState<{
+    user: any;
+    course: any;
+  }>({
+    user: {},
+    course: {},
+  });
+
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    if (!params.id) return;
+    async function getCertificateInfo() {
+      try {
+        const res = await axios.get(`/api/certificate/${params.id}`);
+        if (res.data.success) {
+          setCertificateInfo(res.data.data);
+        }
+      } catch (error) {
+        if (error instanceof Error) setError(error.message);
+        else setError("Error getting certificate");
+      } finally {
+        setLoading(false);
+      }
+    }
+    getCertificateInfo();
+  }, [params.id]);
 
   // Function to mint certificate
   async function MintCertificate(tokenUri: string) {
@@ -72,12 +102,23 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
     return null;
   }
 
+  if (Object.keys(certificateInfo.course).length === 0)
+    return <LoaderCircle className="w-6 h-6 animate-spin text-secondary" />;
+
+  if (error) {
+    return (
+      <div className="max-w-xl mx-auto w-full">
+        <h1 className="text-red-500">Error: {error}</h1>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="w-full max-w-4xl mx-auto mt-6 rounded-sm overflow-hidden px-4">
         {/* Certificate display */}
         <div ref={ref} className="w-full h-full relative">
-          <Certificate courseId={params.id} />
+          <Certificate certificateInfo={certificateInfo} />
         </div>
 
         {/* Mint button or connect button */}

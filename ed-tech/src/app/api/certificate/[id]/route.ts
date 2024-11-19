@@ -1,4 +1,11 @@
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/services/firebase";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
@@ -22,6 +29,20 @@ export async function GET(req: NextRequest) {
 
     const course = await getDoc(doc(db, "courses", courseId));
     if (!course.exists()) throw new Error("Course not found");
+
+    const purchaseRef = collection(db, "purchases");
+
+    const purchase = await getDocs(
+      query(
+        purchaseRef,
+        where("courseId", "==", courseId),
+        where("purchasedBy", "==", session.user.id)
+      )
+    );
+
+    if (purchase.empty) {
+      throw new Error("Purchase not found");
+    }
 
     return NextResponse.json({
       data: {

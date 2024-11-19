@@ -69,6 +69,11 @@ const CourseCard = ({
               Total Duration: {convertDurationToHours(calculateTotalDuration())}
             </span>
           </div>
+          <div>
+            <Link href={`/u/certificate/${course.id}`}>
+              <button className="btn bg-black">Certificate</button>
+            </Link>
+          </div>
         </div>
       </div>
     </Link>

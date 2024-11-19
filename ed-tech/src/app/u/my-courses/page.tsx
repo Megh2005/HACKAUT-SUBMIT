@@ -3,6 +3,7 @@
 import CourseCard from "@/components/CourseCard";
 import axios from "axios";
 import { LoaderCircle } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -28,6 +29,11 @@ const MyCourses = () => {
 
   return (
     <div className="p-4 md:p-6">
+      <div className="flex justify-end my-6">
+        <Link href={"/u/my-certificates"}>
+          <button className="btn btn-secondary">My certificates</button>
+        </Link>
+      </div>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
         {loading && (
           <LoaderCircle className="w-6 h-6 animate-spin text-secondary" />

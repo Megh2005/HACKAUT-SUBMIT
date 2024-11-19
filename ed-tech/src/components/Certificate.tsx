@@ -1,36 +1,14 @@
 import Image from "next/image";
 import cfTemplate from "../../public/assets/certificate.png";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { LoaderCircle } from "lucide-react";
 
-const Certificate = ({ courseId }: { courseId: string }) => {
-  const [certificateInfo, setCertificateInfo] = useState<{
+const Certificate = ({
+  certificateInfo,
+}: {
+  certificateInfo: {
     user: any;
     course: any;
-  }>({
-    user: {},
-    course: {},
-  });
-
-  useEffect(() => {
-    if (!courseId) return;
-    async function getCertificateInfo() {
-      try {
-        const res = await axios.get(`/api/certificate/${courseId}`);
-        if (res.data.success) {
-          setCertificateInfo(res.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getCertificateInfo();
-  }, [courseId]);
-
-  if (Object.keys(certificateInfo.course).length === 0)
-    return <LoaderCircle className="w-6 h-6 animate-spin text-secondary" />;
-
+  };
+}) => {
   return (
     <>
       <Image
