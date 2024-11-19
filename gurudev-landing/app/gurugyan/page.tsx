@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"; // Importing Framer Motion
 import useUser from "@/hooks/useUser";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";

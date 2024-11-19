@@ -2,12 +2,10 @@
 import { useState } from "react";
 import {
   FaHome,
-  FaGithub,
   FaInfoCircle,
   FaUsers,
   FaPhoneAlt,
   FaServicestack,
-  FaProjectDiagram,
   FaComments,
 } from "react-icons/fa"; // Import icons from react-icons
 import Link from "next/link";
