@@ -1,11 +1,25 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const CertificateCard = () => {
+interface CertificateCardProps {
+  tokenURI: string;
+  tokenId: number;
+}
+
+const CertificateCard = ({ tokenURI, tokenId }: CertificateCardProps) => {
+  const router = useRouter();
   return (
-    <div className="card bg-primary/85 shadow-xl overflow-hidden">
+    <div
+      className="card bg-primary/85 shadow-xl overflow-hidden"
+      onClick={() =>
+        router.push(
+          `https://testnets.opensea.io/assets/avalanche-fuji/0xf37b6d5733bc58dcf5634e50fbd9992ea42408a3/${tokenId}`
+        )
+      }
+    >
       <div>
         <Image
-          src={"https://www.svgrepo.com/show/508699/landscape-placeholder.svg"}
+          src={tokenURI}
           alt="Certificate"
           width="400"
           height="200"
@@ -15,9 +29,11 @@ const CertificateCard = () => {
       </div>
       <div className="p-6 space-y-4">
         <h2 className="text-xl font-bold text-white line-clamp-1">
-          Certificate Name
+          Certificate {tokenId + 1}
         </h2>
-        <p className="text-white/85 line-clamp-1 font-medium">Token ID:</p>
+        <p className="text-white/85 line-clamp-1 font-medium">
+          Token ID: {tokenId}
+        </p>
       </div>
     </div>
   );
