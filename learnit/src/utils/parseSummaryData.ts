@@ -8,7 +8,6 @@ export const parseData = (data: string) => {
 
     const topic = parsedData[0];
 
-    // Split points based on \n
     const points: string[] = parsedData.slice(1);
 
     return { topic, points };

@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(
       process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY!
     );
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-exp-1114" });
 
     const prompt = `
       
@@ -71,16 +71,13 @@ export async function POST(req: NextRequest) {
     const result = await model.generateContent(prompt);
 
     if (result.response.text().length > 0) {
+      console.log(result.response.text());
+
       return NextResponse.json(
         new ApiSuccess(
           200,
           "Quiz generated successfully",
-          JSON.parse(
-            result.response
-              .text()
-              .replace(/```json\s*/, "")
-              .replace(/\s*```$/, "")
-          )
+          JSON.parse(result.response.text().replace(/```json\s*|\s*```/g, ""))
         )
       );
     }

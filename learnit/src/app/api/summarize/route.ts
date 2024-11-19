@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(
       process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY!
     );
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-exp-1114" });
 
     const mediaPath = formData.get("mediaPath") as File;
     const buffer = Buffer.from(await mediaPath.arrayBuffer());
@@ -56,18 +56,19 @@ export async function POST(req: NextRequest) {
     const imagePart = fileToGenerativePart(base64Data, mediaPath.type);
 
     const result = await model.generateContent([prompt, imagePart]);
+    let content = "";
 
     if (result.response.text() !== "null") {
+      content = result.response.text().replace(/```json\s*|\s*```/g, "");
+
       await SummaryModel.create({
-        content: result.response.text(),
+        content,
         generatedBy: userId,
         notebook: notebookId,
       });
     }
 
-    return NextResponse.json(
-      new ApiSuccess(200, "Success", result.response.text())
-    );
+    return NextResponse.json(new ApiSuccess(200, "Success", content));
   } catch (error: any) {
     return NextResponse.json(new ApiError(500, error.message), {
       status: 500,
