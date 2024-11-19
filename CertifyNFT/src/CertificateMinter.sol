@@ -17,6 +17,13 @@ contract CertificateMinter is ERC721URIStorage {
         string imageURI
     );
 
+    struct CertificateDetails {
+        uint256 tokenId;
+        string imageURI;
+        string tokenURI;
+        address owner;
+    }
+
     constructor() ERC721("Certificate", "CERT") {
         tokenCounter = 0;
     }
@@ -39,19 +46,27 @@ contract CertificateMinter is ERC721URIStorage {
         tokenCounter++;
     }
 
-    /// @dev Returns all image URIs for certificates owned by a specific address
+    /// @dev Returns detailed information for certificates owned by a specific address
     /// @param owner The address to query
-    /// @return List of image URIs owned by the address
+    /// @return List of certificate details owned by the address
     function getOwnedCertificates(
         address owner
-    ) external view returns (string[] memory) {
+    ) external view returns (CertificateDetails[] memory) {
         uint256[] memory tokenIds = _ownedCertificates[owner];
-        string[] memory imageURIs = new string[](tokenIds.length);
+        CertificateDetails[] memory certificates = new CertificateDetails[](
+            tokenIds.length
+        );
 
         for (uint256 i = 0; i < tokenIds.length; i++) {
-            imageURIs[i] = _tokenImageURIs[tokenIds[i]];
+            uint256 tokenId = tokenIds[i];
+            certificates[i] = CertificateDetails({
+                tokenId: tokenId,
+                imageURI: _tokenImageURIs[tokenId],
+                tokenURI: tokenURI(tokenId),
+                owner: owner
+            });
         }
 
-        return imageURIs;
+        return certificates;
     }
 }

@@ -90,7 +90,7 @@ const Testimonials = () => {
               key={index}
               className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <p className="text-2xl italic mb-4">"{testimonial.content}"</p>
+              <p className="text-2xl italic mb-4">{testimonial.content}</p>
               <div className="mt-4">
                 <h3 className="text-xl text-pink-500 font-semibold">{testimonial.name}</h3>
                 <p className="text-sm text-gray-400">{testimonial.title}</p>
