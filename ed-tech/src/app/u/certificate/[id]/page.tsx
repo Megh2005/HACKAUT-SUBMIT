@@ -61,8 +61,10 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
         args: [tokenUri],
       });
       console.log("Transaction successful!", tx);
+      return tx;
     } catch (error) {
       console.error("Error during minting transaction:", error);
+      return "";
     }
   }
 
@@ -96,7 +98,7 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
       console.log("Image uploaded to IPFS:", imageURI);
 
       // Mint certificate with the image URI
-      await MintCertificate(imageURI);
+      const tx = await MintCertificate(imageURI);
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
