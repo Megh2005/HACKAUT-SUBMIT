@@ -5,6 +5,7 @@ interface ResumeCardProps {
   score: number;
   summary: string;
   suggestions: string[];
+  additional_tips: string;
 }
 
 const ResumeCard = ({ content }: { content: ResumeCardProps }) => {
@@ -38,6 +39,14 @@ const ResumeCard = ({ content }: { content: ResumeCardProps }) => {
           </li>
         ))}
       </ul>
+      <div>
+        <h1 className="text-3xl text-white font-bold underline underline-offset-8">
+          Additional Tips
+        </h1>
+        <p className="mt-6 text-medium text-lg text-white">
+          {content.additional_tips}
+        </p>
+      </div>
       <div>
         <div className="space-y-4">
           {content.score > 80 ? (
