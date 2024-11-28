@@ -3,20 +3,12 @@
 import Certificate from "@/components/Certificate";
 import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import abi from "@/app/abi";
-import {
-  useAccount,
-  useWriteContract,
-  useReadContract,
-  useWatchContractEvent,
-} from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
 import axios from "axios";
-import CertificateCard from "@/components/CertificateCard";
 import { LoaderCircle } from "lucide-react";
-import toast from "react-hot-toast";
+import Link from "next/link";
 
-const contractAddress = "0xf37B6D5733bc58DCF5634e50FBd9992EA42408A3";
+//const contractAddress = "0xf37B6D5733bc58DCF5634e50FBd9992EA42408A3";
 
 const CertificatePage = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(false);
@@ -52,23 +44,6 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
     getCertificateInfo();
   }, [params.id]);
 
-  // Function to mint certificate
-  async function MintCertificate(tokenUri: string) {
-    try {
-      const tx = await writeContractAsync({
-        abi: abi,
-        address: contractAddress,
-        functionName: "mintCertificate",
-        args: [tokenUri],
-      });
-      console.log("Transaction successful!", tx);
-      return tx;
-    } catch (error) {
-      console.error("Error during minting transaction:", error);
-      return "";
-    }
-  }
-
   // Handle minting process
   async function handleMint() {
     setLoading(true);
@@ -82,55 +57,11 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
     try {
       // Generate data URL directly
       const dataUrl = await toPng(ref.current, { cacheBust: true });
+      const link = document.createElement("a");
+      link.download = "tjp-" + Date.now() + ".png";
+      link.href = dataUrl;
+      link.click();
       console.log("Data URL generated:", dataUrl);
-
-      // Upload image to IPFS
-      const image = await fetch(dataUrl).then((res) => res.blob());
-      const imgData = new FormData();
-      imgData.set("file", image);
-
-      console.log("Uploading to IPFS now");
-      const uploadRequestImage = await fetch("/api/files", {
-        method: "POST",
-        body: imgData,
-      });
-
-      const imageURI = await uploadRequestImage.json();
-      console.log("Image uploaded to IPFS:", imageURI);
-
-      // Mint certificate with the image URI
-      const tx = await MintCertificate(imageURI);
-
-      if (tx) {
-        toast.custom((t) => (
-          <div
-            className={`${
-              t.visible ? "animate-enter" : "animate-leave"
-            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-          >
-            <div className="flex-1 w-0 p-4">
-              <p className="text-black text-sm">Transaction ID: {tx}</p>
-            </div>
-            <div className="flex border-l border-gray-200">
-              <button
-                onClick={() => {
-                  navigator.clipboard
-                    .writeText(tx)
-                    .then(() => {
-                      console.log("Transaction ID copied to clipboard!");
-                    })
-                    .catch((err) => {
-                      console.error("Failed to copy transaction ID: ", err);
-                    });
-                }}
-                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Copy
-              </button>
-            </div>
-          </div>
-        ));
-      }
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
@@ -161,10 +92,7 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
           <Certificate certificateInfo={certificateInfo} />
         </div>
 
-        {/* Mint button or connect button */}
-        {!account ? (
-          <ConnectButton />
-        ) : (
+        <Link href={"#"}>
           <button
             onClick={handleMint}
             className="w-full bg-blue-500 text-white p-4 rounded-sm mt-4"
@@ -194,11 +122,10 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
                 </svg>
               </div>
             ) : (
-              "Mint"
+              "Mint and Download"
             )}
           </button>
-        )}
-        <MyCertificates />
+        </Link>
       </div>
     </div>
   );
@@ -210,43 +137,5 @@ interface Certificate {
   tokenURI: string;
   owner: string;
 }
-
-const MyCertificates = () => {
-  const { address } = useAccount();
-  const { data, refetch } = useReadContract({
-    abi: abi,
-    address: contractAddress,
-    functionName: "getOwnedCertificates",
-    args: [address],
-  });
-  useWatchContractEvent({
-    address: contractAddress,
-    abi: abi,
-    eventName: "GameSubmitted",
-    onLogs(data) {
-      console.log("New game added:", data);
-      refetch();
-    },
-  });
-  const certificates = data as Certificate[];
-  return (
-    <div className="p-4 md:p-6">
-      <h1 className="text-3xl font-bold">My Certificates</h1>
-      {certificates && certificates.length > 0 ? (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
-          {certificates.map((certificate) => (
-            <CertificateCard
-              key={certificate.tokenId}
-              tokenURI={certificate.tokenURI}
-              tokenId={parseInt(certificate.tokenId)}
-            />
-          ))}
-        </div>
-      ) : (
-        <p className="mt-6">No certificates</p>
-      )}
-    </div>
-  );
-};
 
 export default CertificatePage;
