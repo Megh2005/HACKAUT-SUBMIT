@@ -32,6 +32,10 @@ const AnalyzeResume = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [content, setContent] = useState();
+  const [extInp, setExtInp] = useState({
+    jobRole: "",
+    tips: "",
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleClick = () => {
@@ -43,10 +47,12 @@ const AnalyzeResume = () => {
   };
 
   const submitResume = async () => {
-    if (!file) return;
+    if (!file || !extInp.jobRole) return;
 
     const formData = new FormData();
     formData.append("pdfFile", file);
+    formData.append("tips", extInp.tips || "");
+    formData.append("jobRole", extInp.jobRole);
 
     try {
       setLoading(true);
@@ -69,7 +75,7 @@ const AnalyzeResume = () => {
         <h1 className="text-center mb-6 text-3xl font-bold">Analyze Resume</h1>
         <div className="w-full max-w-4xl mx-auto ">
           {!(content || error) && (
-            <div className="mt-6">
+            <div className="mt-6 ">
               <motion.div
                 onClick={handleClick}
                 whileHover="animate"
@@ -160,6 +166,38 @@ const AnalyzeResume = () => {
                   </div>
                 </div>
               </motion.div>
+              <div className="space-y-4 mt-6 flex flex-col w-full max-w-xl mx-auto">
+                <div className="w-full space-y-2">
+                  <label htmlFor="job-role" className="text-white text-base">
+                    Mention the role you want to apply for
+                  </label>
+                  <input
+                    id="job-role"
+                    type="text"
+                    className="text-white text-sm w-full p-2 bg-transparent outline-none border border-white rounded-md"
+                    value={extInp.jobRole}
+                    onChange={(e) =>
+                      setExtInp((p) => ({ ...p, jobRole: e.target.value }))
+                    }
+                    placeholder="Job Role"
+                  />
+                </div>
+                <div className="w-full space-y-2">
+                  <label htmlFor="tips" className="text-white text-base">
+                    Any additional modification tips
+                  </label>
+                  <input
+                    id="tips"
+                    className="text-white text-sm w-full p-2 bg-transparent outline-none border border-white rounded-md"
+                    type="text"
+                    value={extInp.tips}
+                    onChange={(e) =>
+                      setExtInp((p) => ({ ...p, tips: e.target.value }))
+                    }
+                    placeholder="Any Tips"
+                  />
+                </div>
+              </div>
               {file && (
                 <div className="my-6 flex justify-center">
                   <button
