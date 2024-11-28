@@ -43,7 +43,9 @@ export default function Home() {
           </div>
           <div className="mockup-browser bg-neutral border my-10">
             <div className="mockup-browser-toolbar">
-              <div className="input text-base-content">https://learnit.com</div>
+              <div className="input text-base-content">
+                https://atmanirvar-one.vercel.app
+              </div>
             </div>
             <div className="bg-base-300 flex justify-center">
               <Image className="w-full" src={homeDemo} alt="LearnIt Homepage" />
