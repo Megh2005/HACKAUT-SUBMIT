@@ -10,11 +10,11 @@ import {
 } from "react-icons/fa"; // Import icons from react-icons
 import Link from "next/link";
 
-const Navbar: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string>("home"); // Track active link
+const Navbar = () => {
+  const [activeLink, setActiveLink] = useState("home"); // Track active link
 
-  // Handle active link state
-  const handleLinkClick = (link: string): void => {
+  // Handle active link state with an explicit type for 'link'
+  const handleLinkClick = (link: string) => {
     setActiveLink(link);
   };
 
@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         <div className="flex space-x-6">
           <Link
             href="/"
-            className={`relative group hover:text-blue-500 `}
+            className={`relative group hover:text-blue-500`}
             onClick={() => handleLinkClick("home")}
           >
             <FaHome className="inline-block mr-2" />
