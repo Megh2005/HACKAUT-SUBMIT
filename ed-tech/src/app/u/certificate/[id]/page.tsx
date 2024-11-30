@@ -7,6 +7,7 @@ import { useAccount, useWriteContract } from "wagmi";
 import axios from "axios";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 //const contractAddress = "0xf37B6D5733bc58DCF5634e50FBd9992EA42408A3";
 
@@ -15,6 +16,7 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
   const ref = useRef<HTMLDivElement>(null);
   const account = useAccount();
   const { writeContractAsync } = useWriteContract();
+  const router = useRouter();
 
   const [certificateInfo, setCertificateInfo] = useState<{
     user: any;
@@ -63,10 +65,10 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
       link.click();
       console.log("Data URL generated:", dataUrl);
       // Redirect to a URL after minting
-      window.location.href = "https://edu-chain-bs-2.vercel.app";
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
+      router.push("https://edu-chain-bs-2.vercel.app");
       setLoading(false);
     }
   }
@@ -94,40 +96,38 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
           <Certificate certificateInfo={certificateInfo} />
         </div>
 
-        <Link target="_blank" href={"https://edu-chain-bs-2.vercel.app/"}>
-          <button
-            onClick={handleMint}
-            className="w-full bg-blue-500 text-white p-4 rounded-sm mt-4"
-            disabled={loading}
-          >
-            {loading ? (
-              <div className="flex justify-center">
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8H4z"
-                  ></path>
-                </svg>
-              </div>
-            ) : (
-              "Mint and Download"
-            )}
-          </button>
-        </Link>
+        <button
+          onClick={handleMint}
+          className="w-full bg-blue-500 text-white p-4 rounded-sm mt-4"
+          disabled={loading}
+        >
+          {loading ? (
+            <div className="flex justify-center">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+            </div>
+          ) : (
+            "Mint and Download"
+          )}
+        </button>
       </div>
     </div>
   );
