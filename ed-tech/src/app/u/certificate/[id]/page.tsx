@@ -94,7 +94,7 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
           <Certificate certificateInfo={certificateInfo} />
         </div>
 
-        <Link href={"https://edu-chain-bs-2.vercel.app/"}>
+        <Link target="_blank" href={"https://edu-chain-bs-2.vercel.app/"}>
           <button
             onClick={handleMint}
             className="w-full bg-blue-500 text-white p-4 rounded-sm mt-4"
