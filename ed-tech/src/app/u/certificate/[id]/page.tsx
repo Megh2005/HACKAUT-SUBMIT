@@ -62,6 +62,8 @@ const CertificatePage = ({ params }: { params: { id: string } }) => {
       link.href = dataUrl;
       link.click();
       console.log("Data URL generated:", dataUrl);
+      // Redirect to a URL after minting
+      window.location.href = "https://edu-chain-bs-2.vercel.app";
     } catch (error) {
       console.error("Error during minting process:", error);
     } finally {
