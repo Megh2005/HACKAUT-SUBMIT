@@ -26,13 +26,13 @@ export default function BackgroundBeamsWithCollisionDemo() {
               </div>
             </Link>
             <Link
-              href={"http://localhost:5173"}
+              href={"https://edu-chain-bs-2.vercel.app"}
               target="_blank"
               className="p-[3px] relative mt-6"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
               <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-xl font-extrabold text-white hover:bg-transparent">
-                Find Internship
+                Verify Certificates
               </div>
             </Link>
           </div>
