@@ -65,7 +65,7 @@ const ResumeCard = ({ content }: { content: ResumeCardProps }) => {
           <div className="flex gap-4">
             <Link href={"https://learnit-tawny.vercel.app"}>
               <button className="mt-6 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-                Start Learning
+                Sharpen Learning
               </button>
             </Link>
             <Link href={"https://atmanirvar-one.vercel.app"}>
